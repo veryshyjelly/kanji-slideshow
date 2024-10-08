@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 )
 
 type Word struct {
@@ -27,34 +28,19 @@ func main() {
 	must(err)
 
 	// Register the respective handlers
-	http.Handle("/", http.FileServer(http.Dir(".")))
-	http.HandleFunc("/data", giveKanji)
-	http.HandleFunc("/data/all", giveFull)
+	http.HandleFunc("/", serve_files)
 
 	// Start the server
-	fmt.Println("started server at http://localhost:8080")
+	fmt.Println("started server at http://localhost:8080/kanji-slideshow")
 	must(http.ListenAndServe(":8080", nil))
 }
 
-func giveFull(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	must(json.NewEncoder(w).Encode(data))
-}
-
-func giveKanji(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	id := r.Form.Get("id")
-	// fmt.Println(id)
-
-	for k, v := range data {
-		if v.Id == id {
-			w.WriteHeader(http.StatusOK)
-			must(json.NewEncoder(w).Encode(data[k]))
-			return
-		}
+func serve_files(w http.ResponseWriter, r *http.Request) {
+	if strings.HasPrefix(r.URL.Path, "/kanji-slideshow") {
+		http.ServeFile(w, r, "./"+r.URL.Path[16:])
+	} else {
+		http.NotFound(w, r)
 	}
-
-	w.WriteHeader(http.StatusNotFound)
 }
 
 func must(err error) {

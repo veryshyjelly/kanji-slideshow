@@ -1,4 +1,26 @@
+#prevNext {
+    display: flex;
+    width: 100%;
+}
+
+a {
+    font-size: 40px;
+}
+
+#prev {
+    display: inline;
+    margin-right: auto;
+    margin-left: 20rem;
+}
+
+#next {
+    display: inline;
+    margin-left: auto;
+    margin-right: 20rem;
+}
+
 #heading {
+    margin-top: -40px;
     font-size: 50px;
     font-family: 'Courier New', Courier, monospace;
     margin-bottom: 40px;
