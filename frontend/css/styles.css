@@ -4,9 +4,22 @@
     margin-bottom: 40px;
 }
 
+#sample-btn {
+    width: 100%;
+    text-align: center;
+}
+
 #box {
     text-align: center;
     align-items: center;
     align-content: center;
     width: 100%;
+}
+
+button {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 10px;
 }

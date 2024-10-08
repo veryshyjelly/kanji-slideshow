@@ -18,6 +18,7 @@
         this.papers = [];
         this.pointer = 0;
         this.callback = callback;
+        this.extratime = extratime;
         this.timeouts = {
             play: [],
             erasing: [],
@@ -35,10 +36,7 @@
                 self.options.loaded(self.kanjis);
 
                 if (self.options.autoplay) {
-                    let delay = self.render();
-                    if (self.callback) {
-                        setTimeout(self.callback, delay + extratime);
-                    }
+                    self.render();
                 }
 
             });
@@ -151,8 +149,10 @@
                 return false;
             }
 
+            let callMain = false;
             if (typeof end === "undefined") {
                 end = this.kanjis.length;
+                callMain = true;
             } else if (end > this.kanjis.length) {
                 return false;
             }
@@ -184,7 +184,9 @@
                 delay += this.kanjis[i].duration;
             }
 
-            return delay;
+            if (this.callback && callMain) {
+                this.timeouts.play.push(setTimeout(this.callback, delay + this.extratime));
+            }
         },
 
         /**

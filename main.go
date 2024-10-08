@@ -48,6 +48,7 @@ func giveKanji(w http.ResponseWriter, r *http.Request) {
 		if v.Id == id {
 			w.WriteHeader(http.StatusOK)
 			must(json.NewEncoder(w).Encode(data[k]))
+			return
 		}
 	}
 
