@@ -43,12 +43,17 @@ function draw_it(kanji) {
 
 let index = 0;
 
+let executing = false;
+
 async function main() {
+    if (executing) return;
+    executing = true;
     var data = await get_data(index);
     heading.innerText = data.keyword;
     // story.innerText = data.story;
     draw_it(data.kanji);
     index += 1;
+    executing = false;
 }
 
 function prev() {
