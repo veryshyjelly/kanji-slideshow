@@ -47,7 +47,7 @@
     Dmak.VERSION = "0.2.0";
 
     Dmak.options = {
-        uri: "/kanji/",
+        uri: "/kanji-slideshow/kanji/",
         skipLoad: false,
         autoplay: true,
         height: 500,
