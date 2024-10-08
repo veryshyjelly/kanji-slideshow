@@ -47,7 +47,7 @@
     Dmak.VERSION = "0.2.0";
 
     Dmak.options = {
-        uri: "../kanji/",
+        uri: "/kanji/",
         skipLoad: false,
         autoplay: true,
         height: 500,
@@ -169,6 +169,13 @@
                 delay = 0,
                 i;
 
+            var db = function (that) {
+                that.timeouts.play.shift();
+                that.erase();
+                setTimeout(that.callback, 700);
+            }
+
+
             // Before drawing clear any remaining erasing timeouts
             for (i = 0; i < this.timeouts.erasing.length; i++) {
                 window.clearTimeout(this.timeouts.erasing[i]);
@@ -185,7 +192,7 @@
             }
 
             if (this.callback && callMain) {
-                this.timeouts.play.push(setTimeout(this.callback, delay + this.extratime));
+                this.timeouts.play.push(setTimeout(db, delay + this.extratime, this));
             }
         },
 

@@ -2,6 +2,7 @@ let draw = document.getElementById("draw");
 let heading = document.getElementById("heading");
 let story = document.getElementById("story");
 var p = document.getElementById("p");
+
 p.onclick = function () {
     dmak.eraseLastStrokes(1);
 };
@@ -23,7 +24,8 @@ r.onclick = function () {
 };
 
 async function get_data(id) {
-    let data = await fetch(`/data?id=${id}`).then(r => r.json());
+    // let data = await fetch(`/data?id=${id}`).then(r => r.json());
+    let data = fullData.find((v, i) => v['#'] == id);
     console.log(data);
     return data;
 }
@@ -31,7 +33,7 @@ async function get_data(id) {
 let dmak;
 function draw_it(kanji) {
     draw.innerHTML = "";
-    dmak = new Dmak(kanji, { 'element': "draw" }, main, 500);
+    dmak = new Dmak(kanji, { 'element': "draw" }, main, 1000);
 }
 
 let index = 0;

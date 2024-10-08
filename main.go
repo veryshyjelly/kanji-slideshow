@@ -27,16 +27,18 @@ func main() {
 	must(err)
 
 	// Register the respective handlers
-	http.Handle("/", http.FileServer(http.Dir("frontend")))
+	http.Handle("/", http.FileServer(http.Dir(".")))
 	http.HandleFunc("/data", giveKanji)
+	http.HandleFunc("/data/all", giveFull)
 
 	// Start the server
 	fmt.Println("started server at http://localhost:8080")
 	must(http.ListenAndServe(":8080", nil))
 }
 
-func home(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "index.html")
+func giveFull(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	must(json.NewEncoder(w).Encode(data))
 }
 
 func giveKanji(w http.ResponseWriter, r *http.Request) {
