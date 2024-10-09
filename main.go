@@ -1,32 +1,12 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
 	"strings"
 )
 
-type Word struct {
-	Id      string `json:"#"`
-	Kanji   string `json:"kanji"`
-	Keyword string `json:"keyword"`
-	Story   string `json:"story"`
-	Comment string `json:"comment"`
-}
-
-var data []Word
-
 func main() {
-	// Open the file containing all the data
-	file, err := os.Open("data.json")
-	must(err)
-
-	// Unmarshal the data into struct
-	err = json.NewDecoder(file).Decode(&data)
-	must(err)
-
 	// Register the respective handlers
 	http.HandleFunc("/", serve_files)
 
