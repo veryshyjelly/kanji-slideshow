@@ -4,10 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Kanji Slideshow</title>
-    <!-- <script src="/data/data.js"></script>
-    <script src="/js/dmak.js"></script>
-    <script src="/js/raphael-min.js"></script>
-    <link rel="stylesheet" href="/css/styles.css"> -->
     <script src="/kanji-slideshow/data/data.js"></script>
     <script src="/kanji-slideshow/js/dmak.js"></script>
     <script src="/kanji-slideshow/js/raphael-min.js"></script>
@@ -15,12 +11,14 @@
 </head>
 
 <body>
+    <h1 id="kanji"></h1>
+    <hr>
     <div id="box">
         <div id="prevNext">
             <div id="prev"><a href="javascript:prev()">⟵</a></div>
+            <div id="heading"></div>
             <div id="next"><a href="javascript:next()">⟶</a> </div>
         </div>
-        <h2 id="heading"></h2>
         <div id="draw"></div>
         <div id="story"></div>
     </div>
@@ -31,8 +29,13 @@
         <button id="n">→</button>
         <button id="r">✕</button>
     </div>
-    <!-- <script src="/js/slideshow.js"></script> -->
+    <div id="lower-box">
+        <!-- <label for="gotoInput" id="goto-label">Goto:</label> -->
+        <input type="text" id="gotoInput" placeholder="Goto;">
+        <button id="gotoButton">go</button>
+    </div>
     <script src="/kanji-slideshow/js/slideshow.js"></script>
+    <script src="/kanji-slideshow/js/controls.js"></script>
 </body>
 
 </html>

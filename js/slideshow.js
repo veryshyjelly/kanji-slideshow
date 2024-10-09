@@ -1,70 +1,58 @@
-let draw = document.getElementById("draw");
-let heading = document.getElementById("heading");
-let story = document.getElementById("story");
-
-var p = document.getElementById("p");
-p.onclick = function () {
-    dmak.eraseLastStrokes(1);
-};
-var s = document.getElementById("s");
-s.onclick = function () {
-    autoPlay = false;
-    dmak.pause();
-};
-var g = document.getElementById("g");
-g.onclick = function () {
-    autoPlay = true;
-    dmak.render();
-};
-var n = document.getElementById("n");
-n.onclick = function () {
-    dmak.renderNextStrokes(1);
-};
-var r = document.getElementById("r");
-r.onclick = function () {
-    dmak.erase();
-};
-
-
-async function get_data(id) {
-    // let data = await fetch(`/data?id=${id}`).then(r => r.json());
-    let data = fullData.find((v, i) => v['#'] == id);
-    console.log(data);
-    return data;
-}
+const HEIGHT = 400;
 
 let dmak;
 let autoPlay = true;
-
-function draw_it(kanji) {
-    draw.innerHTML = "";
-    dmak = new Dmak(kanji, { 'element': "draw", "autoplay": autoPlay }, main, 1000);
-}
+let autoNext = true;
+let playing = true;
 
 let index = 0;
 
-let executing = false;
-
-async function main() {
-    if (executing) return;
-    executing = true;
-    var data = await get_data(index);
+function main() {
+    let data = fullData.find(v => v['#'] == index);
     heading.innerText = data.keyword;
-    // story.innerText = data.story;
-    draw_it(data.kanji);
+    kanji.innerText = data.kanji;
+    draw.innerHTML = "";
+    playing = autoPlay;
+    dmak = new Dmak(data.kanji, {
+        'element': "draw",
+        "autoplay": autoPlay,
+        "autonext": autoNext,
+        "height": HEIGHT,
+        "width": HEIGHT
+    },
+        main, 1000);
     index += 1;
-    executing = false;
 }
 
-function prev() {
+function gotoFunction() {
     dmak.pause();
-    index -= 2;
-    main();
+    let target = gotoInput.value;
+    gotoInput.value = "";
+    let foundIndex = fullData.findIndex(v => v['#'] == target || v['kanji'] == target);
+    if (foundIndex && foundIndex != -1) {
+        index = foundIndex;
+        main();
+    }
 }
 
-function next() {
-    dmak.pause();
-    main()
-}
+document.addEventListener("keyup", function (event) {
+    if (event.key == "Enter") {
+        gotoFunction();
+    }
+
+    if (event.key == "ArrowRight") {
+        next();
+    }
+
+    if (event.key == "ArrowLeft") {
+        prev();
+    }
+
+    if (event.key == " ") {
+        if (playing) { pause() } else { play() }
+    }
+})
+
+gotoButton.onclick = gotoFunction
 
 main()
