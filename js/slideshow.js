@@ -11,6 +11,10 @@ var converter = new showdown.Converter();
 
 function main() {
     let data = fullData.find(v => v['#'] == index);
+    if (!data) {
+        index += 1;
+        return main();
+    }
     heading.innerText = data.keyword;
     kanji.innerText = data.kanji;
     story.innerHTML = converter.makeHtml(data.story);
@@ -35,6 +39,12 @@ function gotoFunction() {
     if (foundIndex && foundIndex != -1) {
         index = foundIndex;
         main();
+    } else if (index == 0) {
+        index = 1;
+        main();
+    } else {
+        index = 0;
+        gotoFunction();
     }
 }
 
