@@ -10,6 +10,11 @@ h1 {
     font-size: 2rem;
 }
 
+p {
+    font-size: 1.25rem;
+    font-family: Verdana, Georgia, "Times New Roman", serif;
+}
+
 hr {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;

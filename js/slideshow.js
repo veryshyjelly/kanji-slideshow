@@ -7,10 +7,13 @@ let playing = true;
 
 let index = 0;
 
+var converter = new showdown.Converter();
+
 function main() {
     let data = fullData.find(v => v['#'] == index);
     heading.innerText = data.keyword;
     kanji.innerText = data.kanji;
+    story.innerHTML = converter.makeHtml(data.story);
     draw.innerHTML = "";
     playing = autoPlay;
     dmak = new Dmak(data.kanji, {
