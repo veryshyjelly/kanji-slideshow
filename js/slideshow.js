@@ -4,6 +4,7 @@ let dmak;
 let autoPlay = true;
 let autoNext = true;
 let playing = true;
+let step = 0.01;
 
 let index = 0;
 
@@ -25,11 +26,23 @@ function main() {
         "autoplay": autoPlay,
         "autonext": autoNext,
         "height": HEIGHT,
-        "width": HEIGHT
+        "width": HEIGHT,
+        "step": step
     },
         main, 1000);
     index += 1;
 }
+
+function fastF() {
+    step = 0.001;
+}
+
+function slowF() {
+    step = 0.01;
+}
+
+fast.onclick = fastF;
+slow.onclick = slowF;
 
 function gotoFunction() {
     dmak.pause();
