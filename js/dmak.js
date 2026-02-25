@@ -160,7 +160,7 @@ class Dmak {
 Dmak.VERSION = "0.2.0";
 
 Dmak.options = {
-    uri: "/kanji-slideshow/kanji/",
+    uri: "/kanji/",
     skipLoad: false,
     autoplay: true,
     autonext: true,

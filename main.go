@@ -11,12 +11,12 @@ func main() {
 	http.HandleFunc("/", serve_files)
 
 	// Start the server
-	fmt.Println("started server at http://localhost:8080/kanji-slideshow")
+	fmt.Println("started server at http://localhost:8080/")
 	must(http.ListenAndServe(":8080", nil))
 }
 
 func serve_files(w http.ResponseWriter, r *http.Request) {
-	if strings.HasPrefix(r.URL.Path, "/kanji-slideshow") {
+	if strings.HasPrefix(r.URL.Path, "/") {
 		http.ServeFile(w, r, "./"+r.URL.Path[16:])
 	} else {
 		http.NotFound(w, r)
